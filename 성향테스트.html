@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>새마을운동 동네생활 성향 테스트</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;background:#fff9ec;color:#292524;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif}
+    .app{min-height:100vh}
+    .page{min-height:100vh}
+    .start-wrap{min-height:100vh;max-width:1160px;margin:0 auto;padding:44px 22px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid #bbf7d0;background:rgba(255,255,255,.8);color:#15803d;font-weight:900;box-shadow:0 6px 20px rgba(22,101,52,.08)}
+    .small-title{margin:34px 0 10px;font-size:24px;font-weight:900;color:#57534e}
+    .main-title{margin:0 0 20px;font-size:clamp(64px,9vw,112px);line-height:.9;letter-spacing:-.06em;font-weight:1000}
+    .main-title span{display:block;text-shadow:0 5px 0 rgba(255,255,255,.85),0 16px 30px rgba(41,37,36,.10)}
+    .green{color:#16a34a}.pink{color:#fb7185}.black{color:#1c1917}
+    .ribbon{display:inline-block;margin-bottom:24px;padding:13px 19px;border-radius:18px;background:#fef3c7;font-size:19px;font-weight:900;color:#57534e;box-shadow:0 6px 16px rgba(120,53,15,.06)}
+    .start-btn{width:min(100%,430px);border:0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;margin:0 0 24px;padding:20px 23px 20px 30px;border-radius:28px;background:#16a34a;color:#fff;font-size:28px;font-weight:1000;box-shadow:0 16px 28px rgba(22,163,74,.24);transition:.2s}
+    .start-btn:hover{transform:translateY(-2px);background:#15803d}
+    .start-arrow{display:grid;place-items:center;width:46px;height:46px;border-radius:999px;background:#fff;color:#15803d}
+    .teaser{max-width:460px;margin:0;color:#44403c;font-size:20px;line-height:1.75;font-weight:700}
+    .house-card{position:relative;width:min(100%,440px);aspect-ratio:4/5;margin:0 auto;overflow:hidden;border-radius:36px;border:1px solid #dcfce7;background:linear-gradient(180deg,#ecfdf5,#fff7ed);box-shadow:0 24px 60px rgba(22,101,52,.16)}
+    .cloud{position:absolute;right:40px;top:26px;font-size:50px}.town-label{position:absolute;top:28px;left:28px;z-index:3;border-radius:999px;background:rgba(255,255,255,.85);padding:8px 14px;color:#15803d;font-weight:900}
+    .ground{position:absolute;bottom:0;left:0;right:0;height:92px;background:#dcfce7}
+    .house{position:absolute;bottom:48px;left:36px;right:36px;height:64%;border:5px solid #15803d;border-radius:34px 34px 18px 18px;background:#fff4df;box-shadow:0 16px 30px rgba(0,0,0,.10)}
+    .roof{position:absolute;left:26px;right:26px;top:-64px;height:72px;border-radius:28px 28px 8px 8px;background:#15803d}.roof2{position:absolute;left:45%;top:-84px;width:80px;height:80px;transform:rotate(45deg);background:#166534}
+    .window{position:absolute;display:grid;place-items:center;width:96px;height:78px;border:3px solid var(--c);border-radius:22px;background:#fff;font-size:44px;box-shadow:inset 0 0 14px rgba(0,0,0,.05)}
+    .w1{left:22px;top:36px;--c:#16a34a}.w2{right:22px;top:36px;--c:#f59e0b}.w3{left:22px;top:142px;--c:#0ea5e9}.w4{right:22px;top:142px;--c:#ec4899}
+    .door{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:76px;height:100px;border-radius:32px 32px 0 0;background:#15803d}.doorknob{position:absolute;left:50%;bottom:40px;width:10px;height:10px;border-radius:999px;background:#fde68a}
+    .sign{position:absolute;bottom:28px;border-radius:18px;background:rgba(255,255,255,.9);padding:12px 14px;font-size:14px;line-height:1.35;font-weight:900;box-shadow:0 10px 20px rgba(0,0,0,.08)}.sign.left{left:24px;color:#15803d}.sign.right{right:24px;color:#db2777}
+    .quiz-wrap{width:min(100%,760px);margin:0 auto;padding:32px 20px}.quiz-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.quiz-head p{margin:0 0 5px;color:#15803d;font-weight:900}.quiz-head h1{margin:0;font-size:30px;line-height:1.2;letter-spacing:-.03em}.count{padding:9px 14px;border-radius:999px;background:#fff;font-weight:900;box-shadow:0 8px 20px rgba(0,0,0,.06);white-space:nowrap}
+    .progress{height:14px;border-radius:999px;overflow:hidden;background:#fff;margin-bottom:30px;box-shadow:inset 0 2px 5px rgba(0,0,0,.06)}.progress-bar{height:100%;border-radius:999px;background:#16a34a;transition:width .3s}
+    .question-card{border:1px solid #dcfce7;border-radius:34px;background:#fff;padding:30px;box-shadow:0 20px 50px rgba(41,37,36,.10);animation:pop .24s ease both}@keyframes pop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .num{display:grid;place-items:center;width:58px;height:58px;margin-bottom:22px;border-radius:18px;background:#dcfce7;color:#15803d;font-size:26px;font-weight:1000}.question-card h2{margin:0 0 28px;font-size:clamp(30px,5vw,42px);line-height:1.2;letter-spacing:-.04em}
+    .options{display:grid;gap:12px}.option{width:100%;display:flex;align-items:center;gap:15px;padding:16px;border-radius:22px;background:var(--bg);border:1px solid var(--border);cursor:pointer;text-align:left;transition:.18s}.option:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+    .option-key{flex:0 0 auto;display:grid;place-items:center;width:44px;height:44px;border-radius:999px;background:var(--color);color:#fff;font-size:20px;font-weight:1000}.option-label{color:#292524;font-size:19px;line-height:1.35;font-weight:900}
+    .result-wrap{width:min(100%,920px);margin:0 auto;padding:32px 20px}.result-card{overflow:hidden;border-radius:36px;border:1px solid var(--border);background:#fff;box-shadow:0 28px 70px rgba(41,37,36,.13);animation:pop .28s ease both}.result-top{padding:34px;color:#fff;background:linear-gradient(135deg,var(--color),var(--dark))}
+    .result-topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.result-badge{border-radius:999px;background:rgba(255,255,255,.9);color:var(--dark);padding:9px 14px;font-weight:1000}.result-title-row{display:flex;align-items:center;gap:18px;margin:10px 0 16px}.result-top p{margin:0;font-size:20px;font-weight:900;opacity:.95}.result-top h1{margin:0;padding:10px 18px 13px;border-radius:26px;background:rgba(255,255,255,.96);color:var(--color);font-size:clamp(42px,7vw,72px);line-height:1;letter-spacing:-.06em;text-shadow:0 3px 0 rgba(255,255,255,.7);box-shadow:0 16px 32px rgba(0,0,0,.14)}.result-top h2{margin:0;max-width:680px;font-size:23px;line-height:1.45}
+    .emoji-mascot{display:grid;place-items:center;width:92px;height:92px;border-radius:30px;font-size:54px;line-height:1;background:#fff;box-shadow:inset 0 0 0 3px rgba(255,255,255,.8),0 10px 20px rgba(0,0,0,.10)}.emoji-mascot-A{background:linear-gradient(135deg,#ecfdf3,#bbf7d0)}.emoji-mascot-B{background:linear-gradient(135deg,#fffbeb,#fde68a)}.emoji-mascot-C{background:linear-gradient(135deg,#f0f9ff,#bae6fd)}.emoji-mascot-D{background:linear-gradient(135deg,#fdf2f8,#fbcfe8)}
+    .result-body{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;padding:26px}.box{border-radius:28px;border:1px solid var(--border);background:var(--bg);padding:22px}.box.white{background:#fff;border-color:#f5f5f4;box-shadow:0 8px 20px rgba(0,0,0,.04)}.box h3{margin:0 0 12px;font-size:20px}.box p{margin:0;color:#44403c;font-size:18px;line-height:1.65;font-weight:700}.mission{display:flex;align-items:center;gap:10px;margin-top:9px;padding:12px;border-radius:18px;background:#fff;font-weight:900;border:1px solid var(--border)}
+    .score-row{margin-bottom:14px}.score-label{display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:13px;font-weight:900}.score-bar{height:12px;border-radius:999px;background:#f5f5f4;overflow:hidden}.score-fill{height:100%;border-radius:999px;background:var(--score-color)}.share-line{color:var(--dark);font-size:22px;font-weight:1000;line-height:1.35}.match-text{color:var(--dark);font-weight:1000}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.action-btn{border:0;border-radius:22px;padding:17px 18px;cursor:pointer;font-size:18px;font-weight:1000;box-shadow:0 10px 22px rgba(0,0,0,.08);transition:.18s}.action-btn:hover{transform:translateY(-2px)}.action-btn.primary{background:#16a34a;color:#fff}.action-btn.secondary{background:#fff;color:#292524}
+    .share-notice{margin-top:14px;border-radius:24px;border:1px solid #bbf7d0;background:#f0fdf4;padding:16px;color:#166534;font-weight:800;line-height:1.55}.share-notice strong{display:block;margin-bottom:4px;font-size:16px}.share-notice p{margin:0 0 10px}.share-notice div{border-radius:16px;background:#fff;padding:12px;color:#292524;font-weight:900}
+    .values{margin-top:18px;border-radius:30px;border:1px solid #dcfce7;background:rgba(255,255,255,.8);padding:20px}.values h3{margin:0 0 12px}.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.value-grid div{border-radius:18px;padding:12px;font-size:14px;font-weight:1000;text-align:center}
+    @media(max-width:820px){.start-wrap{grid-template-columns:1fr;padding-top:34px}.house-card{max-width:380px}.result-body{grid-template-columns:1fr}.value-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:520px){.small-title{margin-top:24px;font-size:19px}.main-title{font-size:66px}.start-btn{font-size:23px;padding:17px 18px 17px 24px}.teaser{font-size:17px}.question-card{padding:23px;border-radius:28px}.option-label{font-size:17px}.result-top{padding:26px}.result-body{padding:18px}.result-title-row{align-items:flex-start}.emoji-mascot{width:76px;height:76px;border-radius:24px;font-size:42px}.actions{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="app" class="app"></div>
+  <script>
+    const TYPE_DATA={
+      A:{name:"새싹 스타터형",short:"먼저 시작하는 타입",summary:"누가 시키기 전에 먼저 시작하는 작은 변화의 시동형",keywords:"자조 · 시작력",value:"자조",color:"#16a34a",dark:"#15803d",soft:"#dcfce7",light:"#ecfdf3",border:"#bbf7d0",emoji:"🌱",activities:["작은 챌린지 열기","동네 아이디어 제안","새로운 모임 시작"],share:"일단 해보는 게 내 스타일!",match:"뚝딱 실천형",desc:"생각만 오래 하기보다 작은 것부터 시작해보는 사람. 동네 문제도 ‘누가 하겠지’보다 ‘내가 먼저 해볼까?’에 가까워요."},
+      B:{name:"뚝딱 실천형",short:"바로 움직이는 타입",summary:"생각보다 몸이 먼저 움직이는 현실 실행러",keywords:"근면 · 실행력",value:"근면",color:"#f59e0b",dark:"#b45309",soft:"#fef3c7",light:"#fffbeb",border:"#fde68a",emoji:"🛠️",activities:["플로깅","행사 운영","정리정돈 프로젝트"],share:"말보다 행동으로 보여줄게!",match:"새싹 스타터형",desc:"계획만 세우고 끝나는 것보다 실제 결과가 보일 때 가장 뿌듯한 사람. 맡은 일은 끝까지 해내는 힘이 있어요."},
+      C:{name:"모닥 공감형",short:"사람을 모으는 타입",summary:"사람을 연결하고 분위기를 살리는 공동체 메이커",keywords:"협동 · 연결력",value:"협동",color:"#0ea5e9",dark:"#0369a1",soft:"#e0f2fe",light:"#f0f9ff",border:"#bae6fd",emoji:"💙",activities:["친구 모으기","커뮤니티 운영","팀플 조율"],share:"같이 하면 더 재밌고 오래가!",match:"반짝 확산형",desc:"혼자 잘하는 것보다 함께 오래가는 분위기를 중요하게 여기는 사람. 사람 사이를 부드럽게 이어주는 힘이 있어요."},
+      D:{name:"반짝 확산형",short:"좋은 변화를 퍼뜨리는 타입",summary:"좋은 변화를 재밌게 퍼뜨리는 소셜 전파러",keywords:"확산 · 소통력",value:"확산",color:"#ec4899",dark:"#be185d",soft:"#fce7f3",light:"#fdf2f8",border:"#fbcfe8",emoji:"📣",activities:["카드뉴스","릴스","캠페인 홍보"],share:"좋은 건 널리 알려야 제맛!",match:"모닥 공감형",desc:"좋은 아이디어를 그냥 지나치지 않고 더 많은 사람이 알 수 있게 만드는 사람. 재미있게 전달하는 감각이 좋아요."}
+    };
+    const QUESTIONS=[
+      {q:"공용 분리수거함 앞이 어지럽혀져 있다면?",options:[["A","일단 내가 할 수 있는 만큼만 정리해본다"],["B","봉투나 장갑을 챙겨 제대로 정리한다"],["C","친구나 이웃에게 같이 치우자고 말한다"],["D","보기 쉬운 안내 문구나 인증샷으로 알린다"]]},
+      {q:"팀플이나 동아리 일이 시작됐을 때 나는?",options:[["A","가볍게라도 먼저 아이디어를 던진다"],["B","내가 맡은 일부터 빠르게 처리한다"],["C","다들 편하게 말할 수 있게 분위기를 푼다"],["D","자료, 공지, 카드뉴스처럼 보기 좋게 정리한다"]]},
+      {q:"카페에서 다회용컵 캠페인을 발견했다면?",options:[["A","오늘 한 번 참여해볼까? 하고 바로 시도한다"],["B","앞으로 텀블러를 더 자주 챙겨야겠다고 생각한다"],["C","친구랑 같이 하면 더 잘할 수 있을 것 같다"],["D","혜택이나 참여 방법을 스토리에 공유하고 싶다"]]},
+      {q:"동네에서 작은 행사를 만든다면 내가 맡고 싶은 건?",options:[["A","처음 해보는 재미있는 코너를 제안하기"],["B","현장 준비, 물품 체크, 운영 도와주기"],["C","사람들이 어색하지 않게 연결해주기"],["D","포스터, 릴스, 초대 문구로 사람들 모으기"]]},
+      {q:"사람들 사이에 의견이 갈릴 때 나는?",options:[["A","일단 대화를 시작해서 막힌 분위기를 풀어본다"],["B","지금 당장 정해야 할 것부터 정리한다"],["C","각자 입장을 듣고 서로 오해 없게 도와준다"],["D","핵심 쟁점을 한눈에 보이게 정리해 공유한다"]]},
+      {q:"주말 플로깅을 하자는 얘기가 나왔다면?",options:[["A","괜찮은 코스와 시간을 먼저 제안한다"],["B","집게, 봉투, 물 같은 준비물을 챙긴다"],["C","같이 가면 덜 부담스러우니 사람을 모은다"],["D","후기 사진이나 짧은 영상으로 남기고 싶다"]]},
+      {q:"내가 ‘좋은 변화’라고 느끼는 순간은?",options:[["A","작은 행동이 누군가의 시작점이 될 때"],["B","귀찮아도 꾸준히 해서 결과가 보일 때"],["C","혼자보다 같이해서 더 오래 이어질 때"],["D","좋은 활동이 더 많은 사람에게 퍼질 때"]]},
+      {q:"나와 가장 가까운 말은?",options:[["A","완벽하지 않아도 일단 시작해보자"],["B","말만 하지 말고 내가 먼저 해볼게"],["C","혼자 하지 말고 같이 해보자"],["D","좋은 건 재밌게 알려야 퍼지지"]]}
+    ];
+    let stage="start", answers=[], shareNotice="";
+    const app=document.getElementById("app");
+    function render(){
+      if(stage==="start") renderStart();
+      if(stage==="question") renderQuestion();
+      if(stage==="result") renderResult();
+    }
+    function renderStart(){
+      app.innerHTML=`<main class="page"><section class="start-wrap"><div><span class="pill">🌿 자조 · 근면 · 협동</span><p class="small-title">새마을운동으로 알아보는</p><h1 class="main-title"><span class="green">동네생활</span><span class="pink">성향</span><span class="black">테스트</span></h1><div class="ribbon">나는 동네생활에서 어떤 타입일까?</div><button class="start-btn" id="startBtn">테스트 START<span class="start-arrow">→</span></button><p class="teaser">분리배출, 팀플, 동네 행사, 플로깅까지.<br>요즘 일상 속 선택으로 알아보는<br>나의 <span class="green" style="font-weight:1000">새마을 가치 성향</span>은?</p></div><div class="house-card"><div class="town-label">우리 동네</div><div class="cloud">☁️</div><div class="ground"></div><div class="house"><div class="roof"></div><div class="roof2"></div><div class="window w1">🌱</div><div class="window w2">🛠️</div><div class="window w3">💙</div><div class="window w4">📣</div><div class="door"></div><div class="doorknob"></div></div><div class="sign left">분리배출<br>함께해요</div><div class="sign right">좋은 변화<br>공유!</div></div></section></main>`;
+      document.getElementById("startBtn").onclick=()=>{answers=[];stage="question";render()};
+    }
+    function renderQuestion(){
+      const current=answers.length, q=QUESTIONS[current], progress=Math.round((current/QUESTIONS.length)*100);
+      app.innerHTML=`<main class="page"><section class="quiz-wrap"><div class="quiz-head"><div><p>새마을운동으로 알아보는</p><h1>동네생활 성향 테스트</h1></div><div class="count">${current+1} / ${QUESTIONS.length}</div></div><div class="progress"><div class="progress-bar" style="width:${progress}%"></div></div><div class="question-card"><div class="num">${current+1}</div><h2>${q.q}</h2><div class="options">${q.options.map(([key,label])=>{const t=TYPE_DATA[key];return `<button class="option" data-key="${key}" style="--bg:${t.light};--border:${t.border};--color:${t.color}"><span class="option-key">${key}</span><span class="option-label">${label}</span></button>`}).join("")}</div></div></section></main>`;
+      document.querySelectorAll(".option").forEach(btn=>btn.onclick=()=>{answers.push(btn.dataset.key); stage=answers.length>=QUESTIONS.length?"result":"question"; shareNotice=""; render();});
+    }
+    function getResultKey(){
+      const s={A:0,B:0,C:0,D:0}; answers.forEach(a=>s[a]++);
+      return ["A","B","C","D"].sort((a,b)=>s[b]-s[a])[0];
+    }
+    function renderResult(){
+      const scores={A:0,B:0,C:0,D:0}; answers.forEach(a=>scores[a]++);
+      const key=getResultKey(), r=TYPE_DATA[key];
+      const shareText=`나는 ${r.name}! ${r.share} #새마을운동 #동네생활성향테스트`;
+      app.innerHTML=`<main class="page"><section class="result-wrap"><div class="result-card" style="--color:${r.color};--dark:${r.dark};--soft:${r.soft};--bg:${r.light};--border:${r.border}"><div class="result-top"><div class="result-topline"><span class="result-badge">결과</span><span class="result-badge">${r.short}</span></div><p>나의 동네생활 캐릭터는</p><div class="result-title-row"><span class="emoji-mascot emoji-mascot-${key}">${r.emoji}</span><h1>${r.name}</h1></div><h2>${r.summary}</h2></div><div class="result-body"><div><div class="box"><h3>${r.keywords}</h3><p>${r.desc}</p></div><div class="box white" style="margin-top:16px"><h3>추천 동네생활 미션</h3>${r.activities.map(x=>`<div class="mission">✅ ${x}</div>`).join("")}</div></div><div><div class="box white"><h3>내 점수</h3>${Object.entries(TYPE_DATA).map(([k,t])=>`<div class="score-row"><div class="score-label"><span>${t.name}</span><span>${scores[k]}점</span></div><div class="score-bar"><div class="score-fill" style="width:${scores[k]/QUESTIONS.length*100}%;--score-color:${t.color}"></div></div></div>`).join("")}</div><div class="box" style="margin-top:16px"><h3>한 줄 공유</h3><div class="share-line">“${r.share}”</div></div><div class="box white" style="margin-top:16px"><h3>찰떡궁합 유형</h3><p class="match-text">${r.match}</p></div></div></div></div><div class="actions"><button class="action-btn primary" id="shareBtn" style="background:${r.color}">결과 공유하기</button><button class="action-btn secondary" id="restartBtn">다시 테스트하기</button></div>${shareNotice?`<div class="share-notice"><strong>공유 안내</strong><p>${shareNotice}</p><div>${shareText}</div></div>`:""}<div class="values"><h3>🏡 새마을 가치 연결</h3><div class="value-grid"><div style="background:#ecfdf3;color:#15803d">자조 = 내가 먼저</div><div style="background:#fffbeb;color:#b45309">근면 = 꾸준히 실천</div><div style="background:#f0f9ff;color:#0369a1">협동 = 함께 해결</div><div style="background:#fdf2f8;color:#be185d">확산 = 좋은 변화를 널리</div></div></div></section></main>`;
+      document.getElementById("restartBtn").onclick=()=>{answers=[];stage="start";shareNotice="";render()};
+      document.getElementById("shareBtn").onclick=async()=>{
+        try{
+          if(navigator.share && window.isSecureContext){await navigator.share({title:"새마을운동 동네생활 성향 테스트",text:shareText,url:location.href});shareNotice="공유창을 열었어요.";render();return;}
+        }catch(e){}
+        try{await navigator.clipboard.writeText(shareText);shareNotice="결과 공유 문구가 복사됐어요. 인스타 스토리나 카톡에 붙여넣어 공유해보세요!";}
+        catch(e){shareNotice=shareText}
+        render();
+      };
+    }
+    render();
+  </script>
+</body>
+</html>
